@@ -47,14 +47,15 @@ public class Node_Queue_Size_Custom_Metrics {
 
 	public static void main(String[] args) throws JSchException, IOException {
     	
-    	if (args.length < 2) {
-            System.out.println("Usage: java -jar your-jar.jar <IP> <port>");
+    	if (args.length < 1) {
+            System.out.println("Usage: java -jar your-jar.jar <IP> <Port>");
             return;
         }
+		
 
         ip = args[0];
         try {
-			gridUrl = "http://"+args[0]+":"+args[1]+"/graphql";
+			gridUrl = "http://"+args[0]+":"+"32000"+"/graphql";
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
