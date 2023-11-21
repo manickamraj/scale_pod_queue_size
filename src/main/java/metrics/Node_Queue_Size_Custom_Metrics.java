@@ -34,20 +34,37 @@ public class Node_Queue_Size_Custom_Metrics {
 	
 	static String pemFile = "aztldevops_key.pem";
 	static String user = "azureuser";
-	static String ip = "98.70.1.193";
+	static String ip ; //= "98.70.1.193";
 	static int port = 22;
 	static Session session;
 	static ChannelExec channel;
 
-    private final String gridUrl = "http://98.70.1.193:32000/graphql"; 
+    static String gridUrl ; //= "http://98.70.1.193:32000/graphql"; 
 
-    public static void main(String[] args) throws JSchException, IOException {
+    public Node_Queue_Size_Custom_Metrics(String gridUrl) {
+		Node_Queue_Size_Custom_Metrics.gridUrl=gridUrl;
+	}
+
+	public static void main(String[] args) throws JSchException, IOException {
+    	
+    	if (args.length < 2) {
+            System.out.println("Usage: java -jar your-jar.jar <IP> <port>");
+            return;
+        }
+
+        ip = args[0];
+        try {
+			gridUrl = "http://"+args[0]+":"+args[1]+"/graphql";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        
         DefaultExports.initialize();
         RestAssured.config = RestAssuredConfig.config()
                 .objectMapperConfig(ObjectMapperConfig.objectMapperConfig().defaultObjectMapperType(
                         io.restassured.mapper.ObjectMapperType.GSON));
 
-        Node_Queue_Size_Custom_Metrics app = new Node_Queue_Size_Custom_Metrics();
+        Node_Queue_Size_Custom_Metrics app = new Node_Queue_Size_Custom_Metrics(gridUrl);
         app.startMetricUpdates();
     }
 
