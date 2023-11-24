@@ -64,6 +64,7 @@
             <version>3.0.0</version>
             <configuration>
                 <mainClass>metrics.Node_Queue_Size_Custom_Metrics</mainClass>
+		<mainClass>metrics.Queue_Size_Custom_Metrics</mainClass>    
             </configuration>
         </plugin>
     </plugins>
